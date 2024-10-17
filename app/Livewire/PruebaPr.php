@@ -3,19 +3,14 @@
 namespace App\Livewire;
 
 use App\Models\Product;
+
 use Livewire\Component;
 
 class PruebaPr extends Component
 {
-    public $search;
+    public $product, $search;
     public $isOpen = false;
     protected $listeners = ['render', 'delete' => 'delete'];
-    public $product = [ // Asegúrate de que esto esté presente
-        'name' => '',
-        'descripcion' => '',
-        'fabrication_cost' => '',
-        'precio' => '',
-    ];
 
     protected $rules = [
         'product.name' => 'required',
@@ -31,46 +26,103 @@ class PruebaPr extends Component
             ->paginate(10);
 
         return view('livewire.prueba-pr', compact('products'))
-        ->layout('layouts.app');
+            ->layout('layouts.app');
     }
 
     public function create()
     {
         $this->isOpen = true;
-        $this->product = [ // Asegúrate de que esto esté presente
-            'name' => '',
-            'descripcion' => '',
-            'fabrication_cost' => '',
-            'precio' => '',
+        $this->product = [ // Inicializa como un array
+            'id' => null, // Para evitar el error de clave indefinida
+            
+            //'name' => '',
+            //'descripcion' => '',
+            //'fabrication_cost' => '',
+            //'precio' => '',
         ];
-        $this->reset(['product']);
+        $this->resetErrorBag(); // Resetea los errores de validación
     }
 
     public function store()
     {
         $this->validate();
 
-        if (!isset($this->product['id'])) {
-            Product::create($this->product);
+        if (!empty($this->product['id'])) {
+            $product = Product::find($this->product['id']);
+            if ($product) {
+                $product->update($this->product);
+                $message = 'Producto actualizado correctamente';
+            } else {
+                // Manejo del caso donde no se encuentra el producto
+                return;
+            }
         } else {
-            $this->product->save();
+            Product::create($this->product);
+            $message = 'Producto creado correctamente';
         }
 
-        $this->reset(['isOpen', 'product']);
-        $this->emitTo('PruebaPr', 'render');
-        $this->emit('alert', 'Registro creado satisfactoriamente');
+        $this->resetComponent(); // Resetea el componente
+
+        $this->dispatch(
+            'alert',
+            type: 'success',
+            title: $message,
+            position: 'center'
+        );
     }
 
-    public function edit(Product $product)
+
+    public function edit($productId)
     {
-        $this->product = $product;
-        $this->isOpen = true;
+        
+        $product = Product::find($productId);
+        if ($product) {
+            $this->product = $product->toArray(); // Convierte el modelo a array
+            $this->isOpen = true; // Abre el modal
+        } else {
+            $this->dispatch(
+                'alert',
+                type: 'error',
+                title: 'Producto no encontrado',
+                position: 'center'
+            );
+        }
     }
 
-    public function delete(Product $product)
+
+    public function delete($productId)
     {
-        $product->delete();
-    }
+        $product = Product::find($productId);
+        if ($product) {
+            $product->delete();
+            $this->dispatch(
+                'alert',
+                type: 'success',
+                title: 'Se borró correctamente',
+                position: 'center'
+            );
+        } else {
+            $this->dispatch(
+                'alert',
+                type: 'error',
+                title: 'Producto no encontrado',
+                position: 'center'
+            );
+        }
 
+        $this->resetComponent(); // Resetea el componente
+    }
+    private function resetComponent()
+    {
+        $this->isOpen = false;
+        $this->product = [
+            'id' => '',
+            'name' => '',
+            'descripcion' => '',
+            'fabrication_cost' => '',
+            'precio' => '',
+        ];
+        $this->resetErrorBag(); // Resetea los errores de validación
+    }
 
 }
