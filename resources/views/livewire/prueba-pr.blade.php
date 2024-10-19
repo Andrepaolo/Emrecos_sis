@@ -14,7 +14,7 @@
                 </div>
                 <div class="lg:ml-40 ml-10">
                     <button wire:click="create()" class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Nuevo
+                        Nuevo
                     </button>
                     @if($isOpen)
                         @include('livewire.ad-product')
@@ -38,17 +38,17 @@
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                         @foreach ($products as $item)
-                            <tr class="text-sm font-medium text-gray-900">
-                                <td class="px-6 py-4">{{$item->id}}</td>
-                                <td class="px-6 py-4">{{$item->name}}</td>
-                                <td class="px-6 py-4">{{$item->descripcion}}</td>
-                                <td class="px-6 py-4">{{$item->fabrication_cost}}</td>
-                                <td class="px-6 py-4">{{$item->precio}}</td>
+                            <tr class="text-sm font-medium text-gray-900" wire:key="product-{{ $item->id }}">
+                                <td class="px-6 py-4">{{ $item->id }}</td>
+                                <td class="px-6 py-4">{{ $item->name }}</td>
+                                <td class="px-6 py-4">{{ $item->descripcion }}</td>
+                                <td class="px-6 py-4">{{ $item->fabrication_cost }}</td>
+                                <td class="px-6 py-4">{{ $item->precio }}</td>
                                 <td class="px-6 py-4 flex space-x-2">
-                                    <x-button wire:click="edit({{$item->id}})">
+                                    <x-button wire:click="edit({{ $item->id }})">
                                         <i class="fas fa-edit"></i> Editar
                                     </x-button>
-                                    <x-danger-button  wire:click="delete({{$item->id}})">
+                                    <x-danger-button wire:click="delete({{ $item->id }})">
                                         <i class="fas fa-trash"></i> Eliminar
                                     </x-danger-button>
                                 </td>
