@@ -13,8 +13,11 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- Alpine Plugins -->
+        <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
 
+        <!-- Alpine Core -->
         <!-- Styles -->
         @livewireStyles
     </head>
@@ -42,7 +45,7 @@
 
 
         @livewireScripts
-        <script src="//unpkg.com/alpinejs" defer></script>
+
 
         @stack('modals')
         @stack('js')

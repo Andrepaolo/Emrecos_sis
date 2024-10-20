@@ -34,7 +34,7 @@ class PruebaPr extends Component
         $this->isOpen = true;
         $this->product = [ // Inicializa como un array
             'id' => null, // Para evitar el error de clave indefinida
-            
+
             //'name' => '',
             //'descripcion' => '',
             //'fabrication_cost' => '',
@@ -69,16 +69,18 @@ class PruebaPr extends Component
             title: $message,
             position: 'center'
         );
+        $this->dispatch('close-modal');
     }
 
 
     public function edit($productId)
     {
-        
+
         $product = Product::find($productId);
         if ($product) {
             $this->product = $product->toArray(); // Convierte el modelo a array
             $this->isOpen = true; // Abre el modal
+            $this->dispatch('open-modal');
         } else {
             $this->dispatch(
                 'alert',
@@ -124,5 +126,7 @@ class PruebaPr extends Component
         ];
         $this->resetErrorBag(); // Resetea los errores de validación
     }
+
+
 
 }
