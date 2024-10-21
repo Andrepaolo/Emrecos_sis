@@ -12,24 +12,32 @@
                         <x-input type="text" wire:model.defer="product.name" class="w-full" />
                         <x-input-error for="product.name" />
                     </div>
-                </div>
 
+                </div>
                 <div class="flex justify-between mx-2 mb-6">
                     <div class="mb-2 md:mr-2 md:mb-0 w-full">
                         <x-label value="Descripción" class="font-bold" />
-                        <x-input type="text" wire:model.defer="product.descripcion" class="w-full" />
+                        <textarea
+                            wire:model.defer="product.descripcion"
+                            class="w-full  border-gray-300 h-24 p-2 border rounded-md shadow-sm"
+
+                            rows="4">
+                        </textarea>
                         <x-input-error for="product.descripcion" />
                     </div>
+                </div>
+
+                <div class="flex justify-between mx-2 mb-6">
 
                     <div class="mb-2 md:mr-2 md:mb-0 w-full">
                         <x-label value="Costo de Fabricación" class="font-bold" />
-                        <x-input type="number" wire:model.defer="product.fabrication_cost" class="w-full" />
+                        <x-input type="number" wire:model.defer="product.fabrication_cost" class="w-full" min="0.1" />
                         <x-input-error for="product.fabrication_cost" />
                     </div>
 
                     <div class="mb-2 md:mr-2 md:mb-0 w-full">
                         <x-label value="Precio" class="font-bold" />
-                        <x-input type="number" wire:model.defer="product.precio" class="w-full" />
+                        <x-input type="number" wire:model.defer="product.precio" class="w-full" min="0.1" />
                         <x-input-error for="product.precio" />
                     </div>
                 </div>

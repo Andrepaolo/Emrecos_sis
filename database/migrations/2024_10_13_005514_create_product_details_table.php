@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('material_id');
+            $table->string('Paso');
             $table->decimal('cantidad', 10, 2);
             $table->decimal('total_material', 10, 2);
             $table->foreign('product_id')->references('id')->on('products');
