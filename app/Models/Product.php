@@ -15,9 +15,9 @@ class Product extends Model
         'precio',
     ];
     //relacion 1 a * con productos deail
-    public function productDetails()
+    public function step()
     {
-        return $this->hasMany(ProductDetail::class);
+        return $this->hasMany(Step::class);
     }
     //relacion 1 a * pedidos
     public function orderDetails()

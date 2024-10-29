@@ -21,6 +21,9 @@
                     <x-nav-link href="{{ route('unit') }}" :active="request()->routeIs('unit')">
                         {{ __('Unida de Medida') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('material') }}" :active="request()->routeIs('material')">
+                        {{ __('Material') }}
+                    </x-nav-link>
                 </div>
             </div>
 

@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('materials', function (Blueprint $table) {
+        Schema::create('inventory_egresses', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->unsignedBigInteger('unit_id');  // Relación con unidades de medida
-            $table->decimal('precio_unidad', 10, 2);
-            $table->decimal('stock', 10, 2)->default(0);
-            $table->foreign('unit_id')->references('id')->on('units');
             $table->timestamps();
         });
     }
@@ -27,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('materials');
+        Schema::dropIfExists('inventory_egresses');
     }
 };

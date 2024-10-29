@@ -11,9 +11,9 @@ class ProductDetail extends Model
     protected $guarded=['id'];
 
     //relacion de 1 a * inversa con producto
-    public function product()
+    public function step()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Step::class);
     }
     //relacion de 1 a * inversa con material
     public function material()

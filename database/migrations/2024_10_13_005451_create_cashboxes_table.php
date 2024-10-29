@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('monto', 10, 2);
             $table->text('descripcion')->nullable();
             $table->date('date');
+            $table->foreignId('user_id')->nullable()->constrained('users'); // Usuario que registró la transacción
             $table->timestamps();
         });
     }

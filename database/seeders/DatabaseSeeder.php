@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Material;
 use App\Models\Product;
 use App\Models\ProductDetail;
+use App\Models\Step;
 use App\Models\Unit;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -54,58 +55,63 @@ class DatabaseSeeder extends Seeder
             'name'=> 'Yeso',
             'unit_id'=> '1',
             'precio_unidad'=> 15,
-            'cantidad'=> 10,
+            'stock'=> 10,
         ]);
         Material::create([
             'name'=> 'Metal Laminado',
             'unit_id'=> '2',
             'precio_unidad'=> 15,
-            'cantidad'=> 10,
+            'stock'=> 10,
         ]);
         Material::create([
             'name'=> 'Pintura Laminada',
             'unit_id'=> '3',
             'precio_unidad'=> 15,
-            'cantidad'=> 10,
+            'stock'=> 10,
         ]);
         Material::create([
             'name'=> 'Pegamento ultra fuerte',
             'unit_id'=> '4',
             'precio_unidad'=> 15,
-            'cantidad'=> 10,
+            'stock'=> 10,
         ]);
         Material::create([
             'name'=> 'Cemento',
             'unit_id'=> '5',
             'precio_unidad'=> 15,
-            'cantidad'=> 10,
+            'stock'=> 10,
+        ]);
+        Step::create([
+            'name'=> 'PASO 1',
+            'descripcion'=> 'Armado de base',
+            'product_id'=>'1',
         ]);
         ProductDetail::create([
-            'product_id'=> '1',
+            'step_id'=> '1',
             'material_id'=> '2',
-            'Paso'=> 'Armar',
             'cantidad'=> 10,
+            'preciounit'=>5,
             'total_material'=> 15,
         ]);
         ProductDetail::create([
-            'product_id'=> '1',
+            'step_id'=> '1',
             'material_id'=> '1',
-            'Paso'=> 'Armar',
             'cantidad'=> 10,
+            'preciounit'=>5,
             'total_material'=> 15,
         ]);
         ProductDetail::create([
-            'product_id'=> '1',
+            'step_id'=> '1',
             'material_id'=> '3',
-            'Paso'=> 'Armar',
             'cantidad'=> 10,
+            'preciounit'=>5,
             'total_material'=> 15,
         ]);
         ProductDetail::create([
-            'product_id'=> '1',
+            'step_id'=> '1',
             'material_id'=> '4',
-            'Paso'=> 'Armar',
             'cantidad'=> 10,
+            'preciounit'=>5,
             'total_material'=> 15,
         ]);
 
