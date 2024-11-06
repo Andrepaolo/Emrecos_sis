@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Unit extends Model
 {
     use HasFactory;
-    protected $guarded=['id'];
+
+    protected $fillable = ['id', 'unidadMedida'];
      //relacion 1 a * con materiales +
      public function materials()
     {

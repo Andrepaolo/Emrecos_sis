@@ -18,9 +18,8 @@ return new class extends Migration
             $table->decimal('price_per_unit', 10, 2); // Precio por unidad del material ingresado
             $table->decimal('total_price', 10, 2); // Precio total del ingreso (quantity * price_per_unit)
             $table->date('date');
-            $table->string('source');
-            $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->foreignId('inventory_ingress_id')->nullable()->constrained('inventory_ingress'); // Relación con ingresos de inventario
+            //$table->string('source');
+
             $table->timestamps();
         });
     }

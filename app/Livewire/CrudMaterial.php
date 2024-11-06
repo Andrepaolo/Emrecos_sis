@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Models\InventoryEgress;
+use App\Models\InventoryIngress;
 use App\Models\Material;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -9,27 +11,29 @@ use Livewire\WithPagination;
 class CrudMaterial extends Component
 {
     use WithPagination;
+
     public $material;
     public $search;
-    public $sortDirection = 'asc'; // Dirección de orden predeterminada
+    public $sortDirection = 'asc';
     public $isOpen = false;
+    public $showIngresoModal = false;
+    public $showEgresoModal = false;
+    public $quantity = 0; // Nueva variable para la cantidad
+    public $selectedMaterialId;
     protected $listeners = ['render', 'delete' => 'delete'];
 
     protected $rules = [
-        'product.name' => 'required',
-        'product.unit_id' => 'required',
-        'product.precio_unidad' => 'required|numeric',
-        'product.cantidad' => 'required|numeric',
+        'material.name' => 'required',
+        'material.unit_id' => 'required',
+        'material.precio_unidad' => 'required|numeric',
+        'material.stock' => 'required|numeric',
     ];
 
     public function render()
     {
-
         $materials = Material::where('name', 'like', '%' . $this->search . '%')
-            //->orWhere('descripcion', 'like', '%' . $this->search . '%')
             ->orderBy('id', $this->sortDirection)
             ->paginate(10);
-
 
         return view('livewire.crud-material', compact('materials'))
             ->layout('layouts.app');
@@ -54,7 +58,6 @@ class CrudMaterial extends Component
                 $material->update($this->material);
                 $message = 'Producto actualizado correctamente';
             } else {
-                // Manejo del caso donde no se encuentra el producto
                 return;
             }
         } else {
@@ -73,10 +76,8 @@ class CrudMaterial extends Component
         $this->dispatch('close-modal');
     }
 
-
     public function edit($materialtId)
     {
-
         $material = Material::find($materialtId);
         if ($material) {
             $this->material = $material->toArray(); // Convierte el modelo a array
@@ -91,7 +92,6 @@ class CrudMaterial extends Component
             );
         }
     }
-
 
     public function delete($materialId)
     {
@@ -115,6 +115,92 @@ class CrudMaterial extends Component
 
         $this->resetComponent(); // Resetea el componente
     }
+
+    // Método para registrar un ingreso
+    // Abre el modal para registrar ingreso
+    public function openIngresoModal($materialId)
+    {
+        $this->selectedMaterialId = $materialId;
+        $this->quantity = 0;
+        $this->showIngresoModal = true;
+    }
+
+    // Abre el modal para registrar egreso
+    public function openEgresoModal($materialId)
+    {
+        $this->selectedMaterialId = $materialId;
+        $this->quantity = 0;
+        $this->showEgresoModal = true;
+    }
+
+    // Función para registrar el ingreso de materiales
+    public function registerIngreso()
+    {
+        $material = Material::find($this->selectedMaterialId);
+        if ($material) {
+            $totalPrice = $this->quantity * $material->precio_unidad;
+
+            InventoryIngress::create([
+                'material_id' => $material->id,
+                'quantity' => $this->quantity,
+                'price_per_unit' => $material->precio_unidad,
+                'total_price' => $totalPrice,
+                'date' => now(),
+            ]);
+
+            $material->actualizarStock($this->quantity);
+
+            $this->dispatch(
+                'alert',
+                type: 'success',
+                title: "Ingreso registrado correctamente",
+                position: 'center'
+            );
+
+            $this->closeModal();
+        }
+    }
+
+    // Función para registrar el egreso de materiales
+    public function registerEgreso()
+    {
+        $material = Material::find($this->selectedMaterialId);
+        if ($material && $material->stock >= $this->quantity) {
+            InventoryEgress::create([
+                'material_id' => $material->id,
+                'quantity' => $this->quantity,
+                'date' => now(),
+                'destination' => 'producción',
+            ]);
+
+            $material->actualizarStock(-$this->quantity);
+
+            $this->dispatch(
+                'alert',
+                type: 'success',
+                title: "Egreso registrado correctamente",
+                position: 'center'
+            );
+
+            $this->closeModal();
+        } else {
+            $this->dispatch(
+                'alert',
+                type: 'error',
+                title: "No hay suficiente stock para realizar el egreso",
+                position: 'center'
+            );
+        }
+    }
+
+    // Función para cerrar los modales
+    public function closeModal()
+    {
+        $this->showIngresoModal = false;
+        $this->showEgresoModal = false;
+        $this->quantity = 0;
+    }
+
     private function resetComponent()
     {
         $this->isOpen = false;
@@ -123,11 +209,12 @@ class CrudMaterial extends Component
             'name' => '',
             'unit_id' => '',
             'precio_unidad' => '',
-            'cantidad' => '',
+            'stock' => '',
         ];
         $this->resetErrorBag(); // Resetea los errores de validación
     }
-    //funciones de ordenamiento
+
+    // Funciones de ordenamiento
     public function sortAsc()
     {
         $this->sortDirection = 'asc';

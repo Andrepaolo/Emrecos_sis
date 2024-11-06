@@ -13,7 +13,7 @@ class Material extends Model
     //relacion * a 1 coon unidad de medida
     public function unit()
     {
-        return $this->belongsTo(Unit::class);
+        return $this->belongsTo(Unit::class,'unit_id');
     }
 
     //relacion 1 a * producto detalle
@@ -21,4 +21,24 @@ class Material extends Model
     {
         return $this->hasMany(ProductDetail::class);
     }
+
+    //relacion de 1 a muchos con ingresos
+    public function ingresos()
+    {
+        return $this->hasMany(InventoryIngress::class);
+    }
+
+    //relacion de 1 a muchos con egresos
+    public function egresos()
+    {
+        return $this->hasMany(InventoryEgress::class);
+    }
+
+    //funcion para actualizar stock
+    public function actualizarStock($stock)
+    {
+        $this->stock += $stock;
+        $this->save();
+    }
+
 }

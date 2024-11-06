@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('inventory_egresses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('material_id')->constrained('materials'); // Relación con la tabla de Material
+            $table->integer('quantity');
+            $table->date('date');
+            $table->string('destination'); // Destino del egreso, puede ser producción, desecho, etc.
+
+
+            $table->foreignId('user_id')->nullable()->constrained('users'); // Usuario que realizó el egreso
             $table->timestamps();
         });
     }

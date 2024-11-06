@@ -9,4 +9,9 @@ class InventoryEgress extends Model
 {
     protected $guarded=['id'];
     use HasFactory;
+    // Relación con material
+    public function material()
+    {
+        return $this->belongsTo(Material::class);
+    }
 }
