@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Livewire\CrudProduct;
+use App\Livewire\CrudIngreso;
 use App\Livewire\CrudMaterial;
 use App\Livewire\CrudUnit;
 use App\Livewire\PruebaPr;
@@ -24,5 +25,6 @@ Route::middleware([
     Route::get('/product', PruebaPr::class)->name('product');
     Route::get('/unit', CrudUnit::class)->name('unit');
     Route::get('/material', CrudMaterial::class)->name('material');
+    Route::get('/ingreso', CrudIngreso::class)->name('ingreso');
 
 });

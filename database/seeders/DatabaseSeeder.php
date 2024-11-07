@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Material;
+use App\Models\Mcategory;
 use App\Models\Product;
 use App\Models\ProductDetail;
 use App\Models\Step;
@@ -37,49 +38,70 @@ class DatabaseSeeder extends Seeder
             'precio'=> 200.2,
         ]);
         Unit::create([
-            'unidadMedida'=> 'KG(kilos)',
+            'unidadMedida'=> 'KG(kilogramos)',
         ]);
         Unit::create([
-            'unidadMedida'=> 'Planchas',
+            'unidadMedida'=> 'Balon',
         ]);
         Unit::create([
-            'unidadMedida'=> 'Galones',
+            'unidadMedida'=> 'Pares',
         ]);
         Unit::create([
-            'unidadMedida'=> 'Litros',
+            'unidadMedida'=> 'Metros',
         ]);
         Unit::create([
-            'unidadMedida'=> 'Bolsas',
+            'unidadMedida'=> 'Unidades',
         ]);
+        Mcategory::create([
+            'category'=> 'ABRASIVOS',
+        ]);
+        Mcategory::create([
+            'category'=> 'GASES INFLAMABLES',
+        ]);
+        Mcategory::create([
+            'category'=> 'INDUMENTARIA',
+        ]);
+        Mcategory::create([
+            'category'=> 'MANGUERA ',
+        ]);
+        Mcategory::create([
+            'category'=> 'CERROJO ',
+        ]);
+
         Material::create([
-            'name'=> 'Yeso',
+            'name'=> 'ALAMBRE DE SOLADURA SOID WIRE 0,8MM',
+            'mcategory_id'=>'1',
             'unit_id'=> '1',
             'precio_unidad'=> 15,
-            'stock'=> 10,
+            'stock'=> 4,
         ]);
         Material::create([
-            'name'=> 'Metal Laminado',
+            'name'=> 'PROPANO',
+            'mcategory_id'=>'2',
             'unit_id'=> '2',
             'precio_unidad'=> 15,
-            'stock'=> 10,
+            'stock'=> 5,
         ]);
         Material::create([
-            'name'=> 'Pintura Laminada',
+            'name'=> 'GUANTES CUERO PLOMOS LARGOS',
+            'mcategory_id'=>'3',
             'unit_id'=> '3',
             'precio_unidad'=> 15,
-            'stock'=> 10,
+            'stock'=> 2,
         ]);
         Material::create([
-            'name'=> 'Pegamento ultra fuerte',
+            'name'=> 'MANGUERA DE AIRE 12X08',
+            'mcategory_id'=>'4',
             'unit_id'=> '4',
             'precio_unidad'=> 15,
-            'stock'=> 10,
+            'stock'=> 1,
         ]);
         Material::create([
-            'name'=> 'Cemento',
+            'name'=> ' CERROJO ACERO INOX  X2 PULG.',
+            'mcategory_id'=>'5',
             'unit_id'=> '5',
             'precio_unidad'=> 15,
-            'stock'=> 10,
+            'stock'=> 2,
         ]);
         Step::create([
             'name'=> 'PASO 1',

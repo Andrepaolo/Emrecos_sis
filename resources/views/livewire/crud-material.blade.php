@@ -1,6 +1,6 @@
 <div class="py-0">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg px-6 py-4 mb-4">
+        <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg px-6 py-4 mb-4">
             <h1 class="text-center text-3xl font-extrabold text-white">¡Menú de Material!</h1>
         </div>
         <div class="bg-white shadow-xl sm:rounded-lg px-6 py-4">
@@ -23,20 +23,24 @@
                     @if($isOpen)
                         @include('livewire.add.add-material')
                     @endif
+                    
                 </div>
             </div>
 
             <!-- Lista de Productos -->
             <h2 class="text-xl font-semibold mb-4">Lista de Materiales</h2>
+            
             <div class="flex justify-between mb-4">
-                <button wire:click="sortAsc" class="dark:bg-gray-600 text-white px-4 py-2 rounded">Ordenar Ascendente</button>
-                <button wire:click="sortDesc" class="dark:bg-gray-600 text-white px-4 py-2 rounded">Ordenar Descendente</button>
+                <button wire:click="sortAsc" class="bg-gray-800 text-white px-4 py-2 rounded">Ordenar Ascendente</button>
+                <button wire:click="sortDesc" class="bg-gray-800 text-white px-4 py-2 rounded">Ordenar Descendente</button>
+                
             </div>
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg">
-                    <thead class="dark:bg-gray-800 text-white">
+                    <thead class="bg-gray-800 text-white">
                         <tr class="text-left text-sm font-semibold uppercase">
                             <th class="px-6 py-3">ID</th>
+                            <th class="px-6 py-3">Categoria</th>
                             <th class="px-6 py-3">Nombre del Material</th>
                             <th class="px-6 py-3">Unidad de Medida</th>
                             <th class="px-6 py-3">Precio Promedio de Unidad</th>
@@ -48,19 +52,25 @@
                         @foreach ($materials as $item)
                             <tr class="hover:bg-gray-100 transition duration-300 ease-in-out">
                                 <td class="px-6 py-4">{{ $item->id }}</td>
+                                <td class="px-6 py-4">{{ $item->mcategory->category }}</td>
                                 <td class="px-6 py-4">{{ $item->name }}</td>
                                 <td class="px-6 py-4">{{ $item->unit->unidadMedida }}</td>
                                 <td class="px-6 py-4">{{ $item->precio_unidad }}</td>
-                                <td class="px-6 py-4">{{ $item->stock }}</td>
+                                <td class="px-6 py-4">
+                                    <span class="@if($item->stock <= 1) bg-red-100 text-red-500 @elseif($item->stock <= 4) bg-yellow-100 text-yellow-500 @else bg-green-100 text-green-500 @endif 
+                                                px-3 py-1 rounded-full inline-block">
+                                        {{ $item->stock }}
+                                    </span>
+                                </td>
                                 <td class="px-6 py-4 flex justify-center space-x-2">
                                     <!-- Botón para ingresar material -->
                                     <!-- Botón para ingreso -->
-                                    <button wire:click="openIngresoModal({{ $item->id }})" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-3 rounded-lg shadow-md transition duration-300 ease-in-out">
+                                    <button wire:click="openIngresoModal({{ $item->id }})" class="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded-lg shadow-md transition duration-300 ease-in-out">
                                         Ingresar
                                     </button>
 
                                     <!-- Botón para egreso -->
-                                    <button wire:click="openEgresoModal({{ $item->id }})" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-lg shadow-md transition duration-300 ease-in-out">
+                                    <button wire:click="openEgresoModal({{ $item->id }})" class="bg-red-300 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-lg shadow-md transition duration-300 ease-in-out">
                                         Egresar
                                     </button>
 
@@ -94,15 +104,20 @@
                                         </div>
                                     @endif
 
+                                    <!-- Botón para editar -->
+                                    <button wire:click="edit({{ $item->id }})" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-3 rounded-lg shadow-md transition duration-300 ease-in-out flex items-center">
+                                        <!-- Ícono de lápiz para editar -->
+                                        <i class="fas fa-edit mr-2"></i> Editar
+                                    </button>
 
-                                    <!-- Botón para editar material -->
-                                    <button wire:click="edit({{ $item->id }})" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-3 rounded-lg shadow-md transition duration-300 ease-in-out">
-                                        Editar
+                                    <!-- Botón para eliminar -->
+                                    
+                                    <button wire:click="delete({{ $item->id }})" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out flex items-center justify-center">
+                                        <!-- Ícono de papelera para eliminar -->
+                                        <i class="fas fa-trash-alt mr-0"></i>
                                     </button>
-                                    <!-- Botón para eliminar material -->
-                                    <button wire:click="delete({{ $item->id }})" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-lg shadow-md transition duration-300 ease-in-out">
-                                        Eliminar
-                                    </button>
+
+
                                 </td>
                             </tr>
                         @endforeach

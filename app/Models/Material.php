@@ -8,12 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Material extends Model
 {
     use HasFactory;
-    protected $guarded=['id'];
+    protected $fillable = ['mcategory_id','name', 'unit_id', 'precio_unidad', 'stock'];
 
     //relacion * a 1 coon unidad de medida
     public function unit()
     {
         return $this->belongsTo(Unit::class,'unit_id');
+    }
+    public function mcategory()
+    {
+        return $this->belongsTo(Mcategory::class,'mcategory_id');
     }
 
     //relacion 1 a * producto detalle

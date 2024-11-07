@@ -5,6 +5,8 @@ namespace App\Livewire;
 use App\Models\InventoryEgress;
 use App\Models\InventoryIngress;
 use App\Models\Material;
+use App\Models\Mcategory;
+use App\Models\Unit;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -20,9 +22,19 @@ class CrudMaterial extends Component
     public $showEgresoModal = false;
     public $quantity = 0; // Nueva variable para la cantidad
     public $selectedMaterialId;
+    public $unidadesDeMedida;  // Unidades de medida disponibles
+    public $category;  // Unidades de medida disponibles
+
+    public function mount()
+    {
+        $this->category = Mcategory::all();
+        $this->unidadesDeMedida = Unit::all();  // Cargar todas las unidades de medida
+          // Cargar todas las unidades de medida
+    }
     protected $listeners = ['render', 'delete' => 'delete'];
 
     protected $rules = [
+        'material.mcategory_id' => 'required',
         'material.name' => 'required',
         'material.unit_id' => 'required',
         'material.precio_unidad' => 'required|numeric',
@@ -207,6 +219,7 @@ class CrudMaterial extends Component
         $this->material = [
             'id' => '',
             'name' => '',
+            'category_id' => '',
             'unit_id' => '',
             'precio_unidad' => '',
             'stock' => '',
