@@ -8,6 +8,11 @@ class CrudProduct extends Component
 {
     public $product, $search;
     public $isOpen = false;
+    public $view = 'materials';
+    public function setView($view)
+    {
+        $this->view = $view;
+    }
 
     protected $rules = [
         'product.nombre' => 'required',
@@ -48,4 +53,7 @@ class CrudProduct extends Component
     public function delete(Product $product) {
         $product->delete();
     }
+
+
+
 }

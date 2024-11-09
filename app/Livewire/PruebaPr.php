@@ -14,7 +14,9 @@ class PruebaPr extends Component
     public $search;
     public $sortDirection = 'asc'; // Dirección de orden predeterminada
     public $isOpen = false;
+
     protected $listeners = ['render', 'delete' => 'delete'];
+
 
     protected $rules = [
         'product.name' => 'required',

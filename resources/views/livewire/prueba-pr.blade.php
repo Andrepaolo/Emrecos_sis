@@ -3,6 +3,7 @@
         <div class="dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg px-6 py-4 mb-4">
             <h1 class="text-center text-3xl font-extrabold text-white">¡Menú de Producción!</h1>
         </div>
+
         <div class="bg-white shadow-xl sm:rounded-lg px-6 py-4">
             <!-- Botón de Crear Nuevo Producto -->
             <div class="flex items-center justify-between mb-6">
@@ -81,5 +82,6 @@
                 </div>
             @endif
         </div>
+
     </div>
 </div>

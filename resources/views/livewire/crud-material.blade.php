@@ -23,17 +23,17 @@
                     @if($isOpen)
                         @include('livewire.add.add-material')
                     @endif
-                    
+
                 </div>
             </div>
 
             <!-- Lista de Productos -->
             <h2 class="text-xl font-semibold mb-4">Lista de Materiales</h2>
-            
+
             <div class="flex justify-between mb-4">
                 <button wire:click="sortAsc" class="bg-gray-800 text-white px-4 py-2 rounded">Ordenar Ascendente</button>
                 <button wire:click="sortDesc" class="bg-gray-800 text-white px-4 py-2 rounded">Ordenar Descendente</button>
-                
+
             </div>
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg">
@@ -57,7 +57,7 @@
                                 <td class="px-6 py-4">{{ $item->unit->unidadMedida }}</td>
                                 <td class="px-6 py-4">{{ $item->precio_unidad }}</td>
                                 <td class="px-6 py-4">
-                                    <span class="@if($item->stock <= 1) bg-red-100 text-red-500 @elseif($item->stock <= 4) bg-yellow-100 text-yellow-500 @else bg-green-100 text-green-500 @endif 
+                                    <span class="@if($item->stock <= 1) bg-red-100 text-red-500 @elseif($item->stock <= 4) bg-yellow-100 text-yellow-500 @else bg-green-100 text-green-500 @endif
                                                 px-3 py-1 rounded-full inline-block">
                                         {{ $item->stock }}
                                     </span>
@@ -76,7 +76,7 @@
 
                                     <!-- Modal de Ingreso -->
                                     @if($showIngresoModal)
-                                        <div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+                                        <div class="fixed inset-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-20">
                                             <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
                                                 <h2 class="text-lg font-bold mb-4">Registrar Ingreso de Material</h2>
                                                 <label class="block mb-2">Cantidad a Ingresar:</label>
@@ -91,7 +91,7 @@
 
                                     <!-- Modal de Egreso -->
                                     @if($showEgresoModal)
-                                        <div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+                                        <div class="fixed inset-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-20">
                                             <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
                                                 <h2 class="text-lg font-bold mb-4">Registrar Egreso de Material</h2>
                                                 <label class="block mb-2">Cantidad a Egresar:</label>
@@ -111,7 +111,7 @@
                                     </button>
 
                                     <!-- Botón para eliminar -->
-                                    
+
                                     <button wire:click="delete({{ $item->id }})" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out flex items-center justify-center">
                                         <!-- Ícono de papelera para eliminar -->
                                         <i class="fas fa-trash-alt mr-0"></i>
