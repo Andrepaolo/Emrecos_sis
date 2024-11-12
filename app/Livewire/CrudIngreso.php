@@ -8,7 +8,7 @@ use Livewire\WithPagination;
 
 class CrudIngreso extends Component
 {
-    
+
     use WithPagination;
     public $ingreso;
     public $search;
@@ -23,6 +23,7 @@ class CrudIngreso extends Component
         'ingreso.price_per_unit' => 'required|numeric',
         'ingreso.total_price' => 'required|numeric',
         'ingreso.total_price' => 'required|numeric',
+        'ingreso.observaciones' => 'required',
     ];
 
     public function render()
@@ -128,6 +129,7 @@ class CrudIngreso extends Component
             'price_per_unit' => '',
             'total_price' => '',
             'date' => '',
+            'observaciones' => '',
         ];
         $this->resetErrorBag(); // Resetea los errores de validación
     }

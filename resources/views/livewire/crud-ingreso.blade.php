@@ -1,10 +1,10 @@
 <div class="py-0">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-full mx-auto sm:px-4 lg:px-6">
         <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg px-6 py-4 mb-4">
             <h1 class="text-center text-3xl font-extrabold text-white">¡Menú de Ingreso!</h1>
         </div>
 
-        
+
         <div class="bg-white shadow-xl sm:rounded-lg px-6 py-4">
             <!-- Botón de Crear Nuevo Producto -->
             <div class="flex items-center justify-between mb-6">
@@ -21,7 +21,7 @@
                     </label>
 
                 </div>
-                
+
             </div>
 
             <!-- Lista de Productos -->
@@ -30,7 +30,7 @@
                 <button wire:click="sortAsc" class="bg-gray-800 text-white px-4 py-2 rounded">Ordenar Ascendente</button>
                 <button wire:click="sortDesc" class="bg-gray-800 text-white px-4 py-2 rounded">Ordenar Descendente</button>
             </div>
-            
+
 
 
             <div class="overflow-x-auto">
@@ -44,6 +44,7 @@
                             <th class="px-6 py-3">Precio unitario</th>
                             <th class="px-6 py-3">Precio Final</th>
                             <th class="px-6 py-3">Fecha</th>
+                            <th class="px-6 py-3">Observaciones</th>
                             <th class="px-6 py-3 text-center">Opciones</th>
                         </tr>
                     </thead>
@@ -57,6 +58,7 @@
                                 <td class="px-6 py-4">{{ $item->price_per_unit }}</td>
                                 <td class="px-6 py-4">{{ $item->total_price }}</td>
                                 <td class="px-6 py-4">{{ $item->date }}</td>
+                                <td class="px-6 py-4">{{ $item->observaciones }}</td>
                                 <td class="px-6 py-4 flex justify-center space-x-2">
                                     <button wire:click="edit({{ $item->id }})" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-3 rounded-lg shadow-md transition duration-300 ease-in-out">
                                         Editar
@@ -84,4 +86,44 @@
             @endif
         </div>
     </div>
+    @push('js')
+    <!-- Cargar SweetAlert2 desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        Livewire.on('delete', id => {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminarlo'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emit('delete', id);
+                    Swal.fire(
+                        '¡Eliminado!',
+                        'El producto ha sido eliminado.',
+                        'success'
+                    );
+                }
+            });
+        });
+        // Escuchar evento para mostrar alertas de éxito
+        Livewire.on('alert', event => {
+            if (event && event.title) {
+                Swal.fire({
+                    title: '¡Éxito!',
+                    text: event.title,
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                });
+            } else {
+                console.error('El mensaje de la alerta no está definido.');
+            }
+        });
+    </script>
+    @endpush
 </div>

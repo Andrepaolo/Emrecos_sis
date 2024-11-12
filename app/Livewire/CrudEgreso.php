@@ -54,14 +54,14 @@ class CrudEgreso extends Component
             $egreso = InventoryEgress::find($this->egreso['id']);
             if ($egreso) {
                 $egreso->update($this->egreso);
-                $message = 'Producto actualizado correctamente';
+                $message = 'Egreso actualizado correctamente';
             } else {
                 // Manejo del caso donde no se encuentra el producto
                 return;
             }
         } else {
             InventoryEgress::create($this->egreso);
-            $message = 'Producto creado correctamente';
+            $message = 'Egreso creado correctamente';
         }
 
         $this->resetComponent(); // Resetea el componente

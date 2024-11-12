@@ -17,6 +17,9 @@ return new class extends Migration
             $table->integer('quantity');
             $table->date('date');
             $table->string('destination'); // Destino del egreso, puede ser producción, desecho, etc.
+            $table->string('cliente')->nullable();
+            $table->string('responsable')->nullable();
+            $table->string('observaciones')->nullable();
 
 
             $table->foreignId('user_id')->nullable()->constrained('users'); // Usuario que realizó el egreso

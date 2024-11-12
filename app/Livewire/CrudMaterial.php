@@ -20,7 +20,9 @@ class CrudMaterial extends Component
     public $isOpen = false;
     public $showIngresoModal = false;
     public $showEgresoModal = false;
-    public $quantity = 0; // Nueva variable para la cantidad
+    public $quantity = 1; // Nueva variable para la cantidad
+    public $observacion, $tipo,$serie,$numero,$RUC, $proveedor;
+    public $destination, $cliente, $responsable, $observaciones;
     public $selectedMaterialId;
     public $unidadesDeMedida;  // Unidades de medida disponibles
     public $category;  // Unidades de medida disponibles
@@ -133,7 +135,7 @@ class CrudMaterial extends Component
     public function openIngresoModal($materialId)
     {
         $this->selectedMaterialId = $materialId;
-        $this->quantity = 0;
+        $this->quantity = 1;
         $this->showIngresoModal = true;
     }
 
@@ -141,7 +143,7 @@ class CrudMaterial extends Component
     public function openEgresoModal($materialId)
     {
         $this->selectedMaterialId = $materialId;
-        $this->quantity = 0;
+        $this->quantity = 1;
         $this->showEgresoModal = true;
     }
 
@@ -149,6 +151,7 @@ class CrudMaterial extends Component
     public function registerIngreso()
     {
         $material = Material::find($this->selectedMaterialId);
+
         if ($material) {
             $totalPrice = $this->quantity * $material->precio_unidad;
 
@@ -158,6 +161,15 @@ class CrudMaterial extends Component
                 'price_per_unit' => $material->precio_unidad,
                 'total_price' => $totalPrice,
                 'date' => now(),
+                'observaciones' => $this->observacion,
+                'tipo' => $this->tipo,             // Agregado
+                'serie' => $this->serie,           // Agregado
+                'numero' => $this->numero,         // Agregado
+                'RUC' => $this->RUC,               // Agregado
+                'proveedor' => $this->proveedor,   // Agregado
+            ]);
+            $this->reset([
+                'quantity', 'tipo', 'serie', 'numero', 'RUC', 'proveedor', 'observacion'
             ]);
 
             $material->actualizarStock($this->quantity);
@@ -165,6 +177,7 @@ class CrudMaterial extends Component
             $this->dispatch(
                 'alert',
                 type: 'success',
+                icon: 'success',
                 title: "Ingreso registrado correctamente",
                 position: 'center'
             );
@@ -173,37 +186,69 @@ class CrudMaterial extends Component
         }
     }
 
+
     // Función para registrar el egreso de materiales
     public function registerEgreso()
     {
+        // Verificar si el material seleccionado existe y tiene suficiente stock
         $material = Material::find($this->selectedMaterialId);
-        if ($material && $material->stock >= $this->quantity) {
-            InventoryEgress::create([
-                'material_id' => $material->id,
-                'quantity' => $this->quantity,
-                'date' => now(),
-                'destination' => 'producción',
-            ]);
 
-            $material->actualizarStock(-$this->quantity);
-
-            $this->dispatch(
-                'alert',
-                type: 'success',
-                title: "Egreso registrado correctamente",
-                position: 'center'
-            );
-
-            $this->closeModal();
-        } else {
+        if (!$material) {
             $this->dispatch(
                 'alert',
                 type: 'error',
-                title: "No hay suficiente stock para realizar el egreso",
+                icon: 'error',
+                title: "Error",
+                text: "Material no encontrado.",
                 position: 'center'
             );
+            return;
         }
+
+        if ($material->stock < $this->quantity) {
+            $this->dispatch(
+                'alert',
+                type: 'error',
+                icon: 'error',
+                title: "Error",
+                text: "No hay suficiente stock para realizar el egreso.",
+                position: 'center'
+            );
+            return;
+        }
+
+        // Registrar el egreso en la tabla 'inventory_egresses'
+        InventoryEgress::create([
+            'material_id' => $material->id,
+            'quantity' => $this->quantity,
+            'date' => now(),
+            'destination' => $this->destination,
+            'cliente' => $this->cliente,
+            'responsable' => $this->responsable,
+            'observaciones' => $this->observaciones,
+            //'user_id' => auth()->id(),
+        ]);
+
+        // Actualizar el stock del material
+        $material->actualizarStock(-$this->quantity);
+
+        // Limpiar los valores después de registrar
+        $this->reset(['quantity', 'responsable', 'cliente', 'destination', 'observaciones']);
+
+        // Mensaje de éxito
+        $this->dispatch(
+            'alert',
+            type: 'success',
+            icon: 'success',
+            title: "Egreso registrado correctamente",
+            position: 'center'
+        );
+
+        $this->closeModal();
     }
+
+
+
 
     // Función para cerrar los modales
     public function closeModal()

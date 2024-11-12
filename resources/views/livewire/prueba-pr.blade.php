@@ -25,7 +25,7 @@
                         + Nuevo Producto
                     </button>
                     @if($isOpen)
-                        @include('livewire.ad-product')
+                        @include('livewire.add.ad-product')
                     @endif
                 </div>
             </div>
@@ -84,4 +84,44 @@
         </div>
 
     </div>
+    @push('js')
+    <!-- Cargar SweetAlert2 desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        Livewire.on('delete', id => {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminarlo'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emit('delete', id);
+                    Swal.fire(
+                        '¡Eliminado!',
+                        'El producto ha sido eliminado.',
+                        'success'
+                    );
+                }
+            });
+        });
+        // Escuchar evento para mostrar alertas de éxito
+        Livewire.on('alert', event => {
+            if (event && event.title) {
+                Swal.fire({
+                    title: '¡Éxito!',
+                    text: event.title,
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                });
+            } else {
+                console.error('El mensaje de la alerta no está definido.');
+            }
+        });
+    </script>
+    @endpush
 </div>

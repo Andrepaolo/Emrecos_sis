@@ -10,7 +10,7 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
+                <!-- Navigation Links-->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
@@ -21,17 +21,18 @@
                     <x-nav-link href="{{ route('unit') }}" :active="request()->routeIs('unit')">
                         {{ __('Unida de Medida') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('material') }}" :active="request()->routeIs('material')">
+                    <!--
+                        <x-nav-link href="{{ route('material') }}" :active="request()->routeIs('material')">
                         {{ __('Material') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('ingreso') }}" :active="request()->routeIs('ingreso')">
                         {{ __('Ingresos') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('vista') }}" :active="request()->routeIs('vista')">
-                        {{ __('Egresos') }}
+                    <x-nav-link href="{{ route('egreso') }}" :active="request()->routeIs('egreso')">
+                        {{ __('Egresos') }}-->
                     </x-nav-link>
                     <x-nav-link href="{{ route('vista') }}" :active="request()->routeIs('vista')">
-                        {{ __('Vista') }}
+                        {{ __('Materiales') }}
                     </x-nav-link>
                 </div>
             </div>
