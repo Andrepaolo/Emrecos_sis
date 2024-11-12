@@ -1,7 +1,7 @@
 <div class="py-0">
     <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
-        <div class="dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg px-6 py-4 mb-4">
-            <h1 class="text-center text-3xl font-extrabold text-white">¡Unidades de Medidad!</h1>
+        <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg px-6 py-4 mb-4">
+            <h1 class="text-center text-3xl font-extrabold text-white">¡Unidades de Medida!</h1>
         </div>
         <div class="bg-white shadow-xl sm:rounded-lg px-6 py-4">
             <!-- Botón de Crear Nuevo Producto -->
@@ -32,12 +32,12 @@
             <!-- Lista de Productos -->
             <h2 class="text-xl font-semibold mb-4">Lista de Productos</h2>
             <div class="flex justify-between mb-4">
-                <button wire:click="sortAsc" class="dark:bg-gray-600 text-white px-4 py-2 rounded">Ordenar Ascendente</button>
-                <button wire:click="sortDesc" class="dark:bg-gray-600 text-white px-4 py-2 rounded">Ordenar Descendente</button>
+                <button wire:click="sortAsc" class="bg-gray-600 text-white px-4 py-2 rounded">Ordenar Ascendente</button>
+                <button wire:click="sortDesc" class="bg-gray-600 text-white px-4 py-2 rounded">Ordenar Descendente</button>
             </div>
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg">
-                    <thead class="dark:bg-gray-800 text-white">
+                    <thead class="bg-gray-800 text-white">
                         <tr class="text-left text-sm font-semibold uppercase">
                             <th class="px-6 py-3">ID</th>
                             <th class="px-6 py-3">Unidad de Medida</th>

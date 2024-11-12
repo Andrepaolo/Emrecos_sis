@@ -9,6 +9,7 @@ use App\Livewire\CrudMaterial;
 use App\Livewire\CrudUnit;
 use App\Livewire\PruebaPr;
 use App\Livewire\VistaM;
+use App\Livewire\VistaP;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,7 +26,7 @@ Route::middleware([
     })->name('dashboard');
 
     //Route::get('/products', CrudProduct::class)->name('product');
-    Route::get('/product', PruebaPr::class)->name('product');
+    Route::get('/product', VistaP::class)->name('product');
     Route::get('/unit', CrudUnit::class)->name('unit');
     Route::get('/material', CrudMaterial::class)->name('material');
     Route::get('/ingreso', CrudIngreso::class)->name('ingreso');

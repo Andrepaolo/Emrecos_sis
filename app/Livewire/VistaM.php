@@ -13,7 +13,7 @@ class VistaM extends Component
     public $view = 'materials';
     public function render()
     {
-        return view('livewire.vista-m')
+        return view('livewire.pages.vista-m')
             ->layout('layouts.app');
     }
 

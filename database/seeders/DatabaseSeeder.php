@@ -106,6 +106,7 @@ class DatabaseSeeder extends Seeder
         Step::create([
             'name'=> 'PASO 1',
             'descripcion'=> 'Armado de base',
+            'cost'=> 0,
             'product_id'=>'1',
         ]);
         ProductDetail::create([
