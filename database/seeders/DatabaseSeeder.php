@@ -115,16 +115,17 @@ class DatabaseSeeder extends Seeder
             'cost'=> 0,
             'product_id'=>'1',
         ]);
+        
         ProductDetail::create([
             'step_id'=> '1',
-            'material_id'=> '2',
+            'material_id'=> '1',
             'cantidad'=> 10,
             'preciounit'=>5,
             'total_material'=> 15,
         ]);
         ProductDetail::create([
             'step_id'=> '1',
-            'material_id'=> '1',
+            'material_id'=> '2',
             'cantidad'=> 10,
             'preciounit'=>5,
             'total_material'=> 15,
@@ -138,6 +139,34 @@ class DatabaseSeeder extends Seeder
         ]);
         ProductDetail::create([
             'step_id'=> '1',
+            'material_id'=> '4',
+            'cantidad'=> 10,
+            'preciounit'=>5,
+            'total_material'=> 15,
+        ]);
+        ProductDetail::create([
+            'step_id'=> '2',
+            'material_id'=> '1',
+            'cantidad'=> 10,
+            'preciounit'=>5,
+            'total_material'=> 15,
+        ]);
+        ProductDetail::create([
+            'step_id'=> '2',
+            'material_id'=> '2',
+            'cantidad'=> 10,
+            'preciounit'=>5,
+            'total_material'=> 15,
+        ]);
+        ProductDetail::create([
+            'step_id'=> '2',
+            'material_id'=> '3',
+            'cantidad'=> 10,
+            'preciounit'=>5,
+            'total_material'=> 15,
+        ]);
+        ProductDetail::create([
+            'step_id'=> '2',
             'material_id'=> '4',
             'cantidad'=> 10,
             'preciounit'=>5,
