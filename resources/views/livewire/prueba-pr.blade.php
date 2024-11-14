@@ -13,12 +13,7 @@
                             <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
                         <input wire:model.live="search" type="text"  class="w-full block pl-14" placeholder="Buscar producto" />
-                        <!-- msotrar loading
-                        <div wire:loading wire:target="search" class="text-gray-500">
-                            Buscando...
-                        </div>-->
                     </label>
-
                 </div>
                 <div>
                     <button wire:click="create()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow-md font-bold tracking-wide cursor-pointer transition duration-300 ease-in-out">
@@ -63,6 +58,9 @@
                                     <button wire:click="delete({{ $item->id }})" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-lg shadow-md transition duration-300 ease-in-out">
                                         Eliminar
                                     </button>
+                                    <a href="{{ route('product.details', $item->id) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded-lg shadow-md transition duration-300 ease-in-out">
+                                        Ver Detalles
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -83,6 +81,20 @@
             @endif
         </div>
 
+        @if($isOpen)
+            <div class="mt-4">
+                <h3 class="text-2xl font-semibold mb-4">Pasos para el Producto: {{ $products['name'] }}</h3>
+                @if(count($steps) > 0)
+                    <ul class="list-disc pl-5">
+                        @foreach($steps as $step)
+                            <li>{{ $step->name }} - {{ $step->descripcion }} (Costo: ${{ $step->cost }})</li>
+                        @endforeach
+                    </ul>
+                @else
+                    <p>No se han definido pasos para este producto.</p>
+                @endif
+            </div>
+        @endif
     </div>
     @push('js')
     <!-- Cargar SweetAlert2 desde CDN -->

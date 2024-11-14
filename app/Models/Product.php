@@ -15,7 +15,7 @@ class Product extends Model
         'precio',
     ];
     //relacion 1 a * con productos deail
-    public function step()
+    public function steps()
     {
         return $this->hasMany(Step::class);
     }
@@ -24,4 +24,17 @@ class Product extends Model
     {
         return $this->hasMany(OrderDetail::class);
     }
+    // En el modelo Product.php
+    public function calculateFabricationCost()
+    {
+        $totalFabricationCost = $this->steps->sum(function ($step) {
+            return $step->productDetails->sum(function ($detail) {
+                return $detail->cantidad * $detail->preciounit;
+            });
+        });
+
+        $this->fabrication_cost = $totalFabricationCost;
+        $this->save();
+    }
+
 }

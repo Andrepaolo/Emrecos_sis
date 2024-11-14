@@ -10,6 +10,7 @@ use App\Livewire\CrudUnit;
 use App\Livewire\PruebaPr;
 use App\Livewire\VistaM;
 use App\Livewire\VistaP;
+use App\Livewire\VistaPD;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -32,6 +33,7 @@ Route::middleware([
     Route::get('/ingreso', CrudIngreso::class)->name('ingreso');
     Route::get('/egreso', CrudEgreso::class)->name('egreso');
     Route::get('/vista', VistaM::class)->name('vista');
+    Route::get('/product-details/{productId}',VistaPD::class)->name('product.details');
 
     //Route::get('/manages', MaterialsManagement::class)->name('manages');
 

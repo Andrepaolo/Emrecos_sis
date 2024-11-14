@@ -19,4 +19,13 @@ class Step extends Model
     {
         return $this->belongsTo(Product::class);
     }
+    // En el modelo Step.php
+    public function calculateStepCost()
+    {
+        $this->cost = $this->productDetails->sum(function ($detail) {
+            return $detail->cantidad * $detail->preciounit;
+        });
+        $this->save();
+    }
+
 }

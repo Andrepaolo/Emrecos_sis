@@ -12,6 +12,7 @@ class PruebaPr extends Component
     use WithPagination;
     public $product;
     public $search;
+    public $steps = [];
     public $sortDirection = 'asc'; // Dirección de orden predeterminada
     public $isOpen = false;
 
@@ -79,11 +80,11 @@ class PruebaPr extends Component
 
     public function edit($productId)
     {
-
-        $product = Product::find($productId);
+        $product = Product::with('steps')->find($productId);  // Cargar el producto con los pasos
         if ($product) {
-            $this->product = $product->toArray(); // Convierte el modelo a array
-            $this->isOpen = true; // Abre el modal
+            $this->product = $product->toArray(); // Convierte el producto a un array
+            $this->steps = $product->steps; // Cargar los pasos asociados
+            $this->isOpen = true; // Abrir el modal
             $this->dispatch('open-modal');
         } else {
             $this->dispatch(
@@ -94,6 +95,7 @@ class PruebaPr extends Component
             );
         }
     }
+
 
 
     public function delete($productId)

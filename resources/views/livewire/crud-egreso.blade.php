@@ -43,6 +43,7 @@
                             <th class="px-6 py-3">Cantidad Restada</th>
                             <th class="px-6 py-3">Fecha</th>
                             <th class="px-6 py-3">Destino</th>
+                            <th class="px-6 py-3">Responsable</th>
                             <th class="px-6 py-3 text-center">Opciones</th>
                         </tr>
                     </thead>
@@ -55,6 +56,7 @@
                                 <td class="px-6 py-4">- {{ $item->quantity}}</td>
                                 <td class="px-6 py-4">{{ $item->date }}</td>
                                 <td class="px-6 py-4">{{ $item->destination }}</td>
+                                <td class="px-6 py-4">{{ $item->responsable }}</td>
 
                                 <td class="px-6 py-4 flex justify-center space-x-2">
                                     <button wire:click="edit({{ $item->id }})" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-3 rounded-lg shadow-md transition duration-300 ease-in-out">

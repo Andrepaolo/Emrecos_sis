@@ -82,8 +82,6 @@
                                         @include('livewire.add.add-egreso')
                                     @endif
 
-
-
                                     <!-- Botón para editar -->
                                     <button wire:click="edit({{ $item->id }})" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-3 rounded-lg shadow-md transition duration-300 ease-in-out flex items-center">
                                         <!-- Ícono de lápiz para editar -->

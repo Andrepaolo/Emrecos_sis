@@ -109,6 +109,12 @@ class DatabaseSeeder extends Seeder
             'cost'=> 0,
             'product_id'=>'1',
         ]);
+        Step::create([
+            'name'=> 'PASO 2',
+            'descripcion'=> 'Armado de cuerpo',
+            'cost'=> 0,
+            'product_id'=>'1',
+        ]);
         ProductDetail::create([
             'step_id'=> '1',
             'material_id'=> '2',
